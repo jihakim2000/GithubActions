@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Change to Windows runner
 
     steps:
       - name: Check out code
@@ -13,7 +13,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.301'
+          dotnet-version: '5.0.301'  # You can use .NET 5 or any version you need
 
       - name: Restore dependencies
         run: dotnet restore GithubActions.sln
