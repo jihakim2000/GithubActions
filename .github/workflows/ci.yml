@@ -3,19 +3,23 @@ name: 'Run App'
 on: [push, pull_request]
 
 jobs:
-  check-bats-version:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-dotnet@v1
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.301'
-      - uses: nuget/setup-nuget@v1
-      - name: Nuget Restore
-        run: nuget restore GithubActions.sln
-      - name: Install dependencies
+
+      - name: Restore dependencies
         run: dotnet restore GithubActions.sln
+
       - name: Build
-        run: msbuild /p:Configuration=Release GithubActions.sln
+        run: dotnet build --configuration Release
+
       - name: Run Unit Tests
-        run: mono ./packages/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./Tests/bin/Release/Tests.dll
+        run: dotnet test --no-build --verbosity normal
