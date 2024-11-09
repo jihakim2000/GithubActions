@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build-and-test:
-    runs-on: windows-latest  # Change to Windows runner
+    runs-on: windows-latest  # Ensure we're using a Windows runner for .NET Framework
 
     steps:
       - name: Check out code
@@ -13,7 +13,10 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.301'  # You can use .NET 5 or any version you need
+          dotnet-version: '5.0.301'  # Adjust to your specific .NET version
+
+      - name: NuGet Restore
+        run: nuget restore GithubActions.sln
 
       - name: Restore dependencies
         run: dotnet restore GithubActions.sln
