@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build-and-test:
-    runs-on: windows-latest  # Ensure we're using a Windows runner for .NET Framework
+    runs-on: windows-latest  # Use Windows runner for .NET Framework 4.8 compatibility
 
     steps:
       - name: Check out code
@@ -13,10 +13,7 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '5.0.301'  # Adjust to your specific .NET version
-
-      - name: NuGet Restore
-        run: nuget restore GithubActions.sln
+          dotnet-version: '5.0.301'  # or the appropriate version
 
       - name: Restore dependencies
         run: dotnet restore GithubActions.sln
