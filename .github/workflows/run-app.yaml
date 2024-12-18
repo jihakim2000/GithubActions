@@ -7,4 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Basic Action
-        run: echo "Hello, World!"
+        run: echo "Hello, World!" 
